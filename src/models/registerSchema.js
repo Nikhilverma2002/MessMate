@@ -9,7 +9,7 @@ const registerSchema = mongoose.Schema({
   interval: String,
   password: String,
   college: String,
-  amount: String,
+  amount: Number,
   address: String,
   confirmPassword: String,
   tokens: [
@@ -20,7 +20,36 @@ const registerSchema = mongoose.Schema({
       },
     },
   ],
-  money: String,
+  money: [
+    {
+      recharges: {
+        type: String,
+      },
+      date: {
+        type: String,
+      },
+    },
+  ],
+  skipMeall: [
+    {
+      skipMealData: {
+        type: String,
+      },
+      date: {
+        type: String,
+      },
+    }
+  ], mealDone: [
+    {
+      mealDoneOk: {
+        type: true,
+      },
+      date: {
+        type: String,
+      },
+    }
+  ]
+
 });
 
 registerSchema.methods.generateAuthToken = async function () {
