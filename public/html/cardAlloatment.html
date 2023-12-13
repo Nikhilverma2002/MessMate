@@ -41,7 +41,8 @@
                           id="inputName"
                           name="inputName"
                           type="text"
-                          placeholder="name@example.com"
+                          required
+                          placeholder="name"
                         />
                         <label for="inputName">Name</label>
                       </div>
@@ -49,6 +50,7 @@
                         <input
                           class="form-control"
                           id="inputEmail"
+                          required
                           name="inputEmail"
                           type="email"
                           placeholder="name@example.com"
@@ -60,6 +62,7 @@
                           class="form-control"
                           id="inputMobileNumber"
                           name="inputMobileNumber"
+                          required
                           type="tel"
                           placeholder="Enter your mobile number"
                         />
@@ -69,6 +72,7 @@
                         <input
                           class="form-check-input"
                           type="radio"
+                          required
                           name="Status"
                           id="fullTime"
                           value="fullTime"
@@ -83,6 +87,7 @@
                           type="radio"
                           name="Status"
                           id="partTime"
+                          required
                           value="partTime"
                         />
                         <label class="form-check-label" for="PartTime"
@@ -95,6 +100,7 @@
                           id="inputCollegeOrJob"
                           name="inputCollegeOrJob"
                           type="text"
+                          required
                           placeholder="Enter your college or job"
                         />
                         <label for="inputCollegeOrJob">College/Job</label>
@@ -112,12 +118,12 @@
 
                       <div class="form-floating mb-3">
                         <input
-                          size="5"
-                          ,
+                          size="5",
                           class="form-control"
                           id="inputAmount"
                           name="inputAmount"
                           type="number"
+                          required
                           placeholder="Enter amount credited"
                         />
                         <label for="inputAmount">Amount</label>
@@ -129,6 +135,7 @@
                           id="inputPassword"
                           name="inputPassword"
                           type="text"
+                          required
                           placeholder="Enter your password"
                         />
                         <label for="inputPassword">Enter your password</label>
@@ -140,6 +147,7 @@
                           id="inputConfirmPassword"
                           name="inputConfirmPassword"
                           type="text"
+                          required
                           placeholder="Confirm Password"
                         />
                         <label for="inputConfirmPassword"
@@ -162,10 +170,6 @@
                       </div>
                     </form>
                   </div>
-                  <div class="card-footer text-center py-3">
-                    <div class="small">
-                      <a href="login.html">Have an account? Go to login</a>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -179,12 +183,8 @@
             <div
               class="d-flex align-items-center justify-content-between small"
             >
-              <div class="text-muted">Copyright &copy; Your Website 2023</div>
-              <div>
-                <a href="#">Privacy Policy</a>
-                &middot;
-                <a href="#">Terms &amp; Conditions</a>
-              </div>
+              <div class="text-muted">Copyright &copy; MessMate 2023</div>
+            
             </div>
           </div>
         </footer>

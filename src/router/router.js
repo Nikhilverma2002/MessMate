@@ -11,8 +11,12 @@ router.post("/profile", auth, controller.profilePost);
 router.get("/admin", controller.adminpost);
 router.get("/cardAlloatment", controller.cardAllotment);
 router.get("/login", controller.userlogin);
-router.get("/editprofile", controller.editprofile);
+// router.get("/editprofile", controller.editprofile);
 router.get("/recharge", controller.recharge);
 router.get("/testing", controller.testing);
+router.post("/contact", controller.contactPost);
+router.post("/editprofile", controller.editPost);
+router.get("/profile/editprofile", auth, controller.editprofile);
+
 
 module.exports = router;
