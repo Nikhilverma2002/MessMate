@@ -7,8 +7,12 @@ const auth = require("../middleware/auth");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const { log } = require("console");
+
+const contactSchema = require("../models/contactSchema");
+
 const { use } = require("../router/router");
 const { cursorTo } = require("readline");
+
 
 exports.index = async (req, res) => {
   try {
@@ -237,6 +241,63 @@ exports.testing = async (req, res) => {
   }
 };
 
+//contact form
+
+exports.contactPost = async (req, resp) => {
+  console.log(11111111);
+  const name = req.body.name;
+  const number = req.body.number;
+  const subject = req.body.subject;
+  const message = req.body.message;
+  console.log(name);
+  console.log(number);
+
+  try {
+    const contactData = new contactSchema({
+      name: name,
+      number: number,
+      subject: subject,
+      message: message,
+    });
+    const contact = await contactData.save();
+    resp
+      .status(200)
+      .json({ success: true, message: "We will contact you soon", contact });
+  } catch (error) {
+    console.error(error);
+    resp.status(401).send("Some Error occured");
+  }
+};
+
+//edit profile
+
+exports.editPost = async (req, resp) => {
+  console.log(11111111,req.body);
+  const token = req.cookies.jwt;
+  const verify = jwt.verify(token, process.env.secretKey);
+  const user = await registerSchema.findById(verify._id);6  
+  console.log(user);
+  const name = req.body.name;
+  const number = req.body.number;
+  const address = req.body.address;
+  console.log(name);
+  console.log(number);
+
+  try {
+    const editData = new editSchema({
+      name: name,
+      number: number,
+      message: address,
+    });
+    const edit = await editData.save();
+    resp
+      .status(200)
+      .json({ success: true, message: "Profile Updated Successfully", edit });
+  } catch (error) {
+    console.error(error);
+    resp.status(401).send("Some Error occured");
+  }
+};
 
 exports.testingPost = async (req, resp) => {
   const id = req.body.id

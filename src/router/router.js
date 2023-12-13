@@ -9,6 +9,13 @@ router.get("/admin", controller.adminpost);
 router.get("/cardAlloatment", controller.cardAllotment);
 router.get("/login", controller.userlogin);
 // router.get("/editprofile", controller.editprofile);
+
+router.get("/recharge", controller.recharge);
+router.get("/testing", controller.testing);
+router.post("/contact", controller.contactPost);
+router.post("/editprofile", controller.editPost);
+router.get("/profile/editprofile", auth, controller.editprofile);
+
 router.get("/profile/recharge", controller.recharge);
 router.get("/testing", controller.testing);
 router.get("/profile", auth, controller.profileGet);
@@ -22,8 +29,6 @@ router.post("/login", controller.loginPost);
 router.post("/profile/amount", controller.testingPost); //for tapping card and diduct the money
 router.post("/profile/recharge", controller.rechargePost);
 router.post("/profile", controller.skeepMeal);
-
-
 
 
 module.exports = router;
