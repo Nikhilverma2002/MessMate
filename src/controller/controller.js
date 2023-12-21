@@ -13,7 +13,6 @@ const contactSchema = require("../models/contactSchema");
 const { use } = require("../router/router");
 const { cursorTo } = require("readline");
 
-
 exports.index = async (req, res) => {
   try {
     const messSystem = await MessModel.find({}); // Use await here to wait for the result
@@ -35,6 +34,8 @@ exports.registerPost = async (req, resp) => {
       inputPassword,
       inputMobileNumber,
       inputConfirmPassword,
+      inputId,
+      inputAmount,
       Status,
       inputAddress,
       inputCollegeOrJob,
@@ -57,6 +58,8 @@ exports.registerPost = async (req, resp) => {
           email: inputEmail,
           number: inputMobileNumber,
           interval: Status,
+          cardId: inputId,
+          amount: inputAmount,
           password: inputPassword,
           college: inputCollegeOrJob,
           address: inputAddress,
@@ -103,7 +106,7 @@ exports.loginPost = async (req, resp) => {
       });
       resp.status(200).json({
         success: true,
-        message: "Successfuly",
+        message: "Successfull",
       });
     } else {
       resp.status(402).json({
@@ -136,7 +139,6 @@ exports.profileGet = async (req, resp) => {
   }
 };
 
-
 // edit profile
 exports.editprofilePost = async (req, resp) => {
   try {
@@ -156,7 +158,6 @@ exports.editprofilePost = async (req, resp) => {
     if (address) user.address = address;
     await user.save();
     resp.redirect("/profile");
-
   } catch (error) {
     console.log(error);
     resp
@@ -193,12 +194,12 @@ exports.editprofilePost = async (req, resp) => {
 //admin
 
 exports.adminpost = async (req, res) => {
-  res.render('admin')
+  res.render("admin");
 };
 
 // allcard holders
 exports.costomers = async (req, res) => {
-  const user = await registerSchema.find({})
+  const user = await registerSchema.find({});
   console.log(user);
   res.render("customers", {
     user: user,
@@ -218,12 +219,12 @@ exports.userlogin = async (req, res) => {
 //edit profile
 exports.editProfileGet = async (req, res) => {
   // res.sendFile("html/edit.html", { root: staticPath });
-  res.render('editprofile')
+  res.render("editprofile");
 };
 
 //recharge card
 exports.recharge = async (req, res) => {
-  res.render('recharge')
+  res.render("recharge");
 };
 
 //testing learning ejs
@@ -272,10 +273,11 @@ exports.contactPost = async (req, resp) => {
 //edit profile
 
 exports.editPost = async (req, resp) => {
-  console.log(11111111,req.body);
+  console.log(11111111, req.body);
   const token = req.cookies.jwt;
   const verify = jwt.verify(token, process.env.secretKey);
-  const user = await registerSchema.findById(verify._id);6  
+  const user = await registerSchema.findById(verify._id);
+  6;
   console.log(user);
   const name = req.body.name;
   const number = req.body.number;
@@ -300,8 +302,8 @@ exports.editPost = async (req, resp) => {
 };
 
 exports.testingPost = async (req, resp) => {
-  const id = req.body.id
-  const uses_money = req.body.uses_money
+  const id = req.body.id;
+  const uses_money = req.body.uses_money;
   console.log(id, uses_money);
 
   try {
@@ -312,12 +314,9 @@ exports.testingPost = async (req, resp) => {
     } else {
       console.log("not enough balance");
     }
-    resp.send(realmoney)
-  } catch (error) {
-
-  }
-}
-
+    resp.send(realmoney);
+  } catch (error) {}
+};
 
 // recharge post
 
@@ -331,8 +330,8 @@ exports.rechargePost = async (req, res) => {
     }
 
     // Logging date values from money arrays of all users
-    users.forEach(user => {
-      user.money.forEach(moneyEntry => {
+    users.forEach((user) => {
+      user.money.forEach((moneyEntry) => {
         console.log(moneyEntry.date);
       });
     });
@@ -340,7 +339,9 @@ exports.rechargePost = async (req, res) => {
     const userIdToUpdate = verify._id; // ID of the user to update (current user)
 
     // Find the specific user by ID
-    const currentUser = users.find(user => String(user._id) === String(userIdToUpdate));
+    const currentUser = users.find(
+      (user) => String(user._id) === String(userIdToUpdate)
+    );
     if (!currentUser) {
       return res.status(401).send("User not found.");
     }
@@ -350,9 +351,11 @@ exports.rechargePost = async (req, res) => {
     const parsedAcMoney = parseFloat(currentUser.amount);
     const newAmount = parsedAcMoney + parsedMoney;
 
-    const currentDate = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-    const parts = currentDate.split(' ');
-    const indianDate = parts.slice(0, 4).join(' ');
+    const currentDate = new Date().toLocaleString("en-IN", {
+      timeZone: "Asia/Kolkata",
+    });
+    const parts = currentDate.split(" ");
+    const indianDate = parts.slice(0, 4).join(" ");
 
     // Update user's money and add to the 'money' array
 
@@ -360,18 +363,14 @@ exports.rechargePost = async (req, res) => {
     currentUser.money.push({ recharges: money, date: indianDate });
     await currentUser.save();
 
-    res.redirect('../profile');
+    res.redirect("../profile");
   } catch (error) {
     console.error(error);
     res.status(401).send("something went wrong");
   }
 };
 
-
-
-
-
-// meal plan 
+// meal plan
 exports.skeepMeal = async (req, res) => {
   try {
     const token = req.cookies.jwt;
@@ -382,27 +381,31 @@ exports.skeepMeal = async (req, res) => {
     }
 
     const userIdToUpdate = verify._id;
-    const currentDate = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-    const parts = currentDate.split(',');
-    const indianDate = parts.slice(0, 1).join(' ');
+    const currentDate = new Date().toLocaleString("en-IN", {
+      timeZone: "Asia/Kolkata",
+    });
+    const parts = currentDate.split(",");
+    const indianDate = parts.slice(0, 1).join(" ");
     console.log(indianDate);
     const { skipMealOption } = req.body;
-    const currentUser = users.find(user => String(user._id) === String(userIdToUpdate));
+    const currentUser = users.find(
+      (user) => String(user._id) === String(userIdToUpdate)
+    );
 
     if (!currentUser) {
       return res.status(401).send("User not found.");
     }
 
-    currentUser.skipMeall.push({ skipMealData: skipMealOption, date: indianDate })
+    currentUser.skipMeall.push({
+      skipMealData: skipMealOption,
+      date: indianDate,
+    });
     await currentUser.save();
-    res.redirect('../profile');
-
+    res.redirect("../profile");
   } catch (error) {
     console.error(error);
     res.status(401).send("something went wrong");
-
   }
-
 };
 
 exports.notTaking = async (req, res) => {
@@ -411,20 +414,24 @@ exports.notTaking = async (req, res) => {
     const verify = jwt.verify(token, process.env.secretKey);
     const userIdToUpdate = verify._id;
 
-    const currentDate = new Date().toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' });
-    const parts = currentDate.split(',');
-    const indianDate = parts.slice(0, 1).join(' ');
+    const currentDate = new Date().toLocaleDateString("en-IN", {
+      timeZone: "Asia/Kolkata",
+    });
+    const parts = currentDate.split(",");
+    const indianDate = parts.slice(0, 1).join(" ");
     console.log(indianDate);
     const users = await registerSchema.aggregate([
       {
         $match: {
-          "skipMeall.date": indianDate
-        }
-      }
+          "skipMeall.date": indianDate,
+        },
+      },
     ]);
 
     if (!users || users.length === 0) {
-      return res.status(401).send("No users found for today's date in skipMeall.");
+      return res
+        .status(401)
+        .send("No users found for today's date in skipMeall.");
     }
 
     res.render("notTaking", {
@@ -442,23 +449,27 @@ exports.success = async (req, res) => {
     const verify = jwt.verify(token, process.env.secretKey);
     const userIdToUpdate = verify._id;
 
-    const currentDate = new Date().toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' });
-    const parts = currentDate.split(',');
-    const indianDate = parts.slice(0, 1).join(' ');
+    const currentDate = new Date().toLocaleDateString("en-IN", {
+      timeZone: "Asia/Kolkata",
+    });
+    const parts = currentDate.split(",");
+    const indianDate = parts.slice(0, 1).join(" ");
     console.log(indianDate);
 
     const users = await registerSchema.aggregate([
       {
         $match: {
           "skipMeall.date": {
-            $not: { $eq: indianDate } // Match documents where today's date is not present in skipMeall
-          }
-        }
-      }
+            $not: { $eq: indianDate }, // Match documents where today's date is not present in skipMeall
+          },
+        },
+      },
     ]);
 
     if (!users || users.length === 0) {
-      return res.status(401).send("No users found without today's date in skipMeall.");
+      return res
+        .status(401)
+        .send("No users found without today's date in skipMeall.");
     }
 
     res.render("success", {
@@ -479,15 +490,17 @@ exports.mealDone = async (req, res) => {
       return res.status(401).send("No users found.");
     }
 
-    users.forEach(user => {
-      user.money.forEach(moneyEntry => {
+    users.forEach((user) => {
+      user.money.forEach((moneyEntry) => {
         console.log(moneyEntry.date);
       });
     });
 
     const userIdToUpdate = verify._id;
 
-    const currentUser = users.find(user => String(user._id) === String(userIdToUpdate));
+    const currentUser = users.find(
+      (user) => String(user._id) === String(userIdToUpdate)
+    );
     if (!currentUser) {
       return res.status(401).send("User not found.");
     }
@@ -497,15 +510,17 @@ exports.mealDone = async (req, res) => {
     const parsedAcMoney = parseFloat(currentUser.amount);
     const newAmount = parsedAcMoney + parsedMoney;
 
-    const currentDate = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-    const parts = currentDate.split(',');
-    const indianDate = parts.slice(0, 1).join(' ');
+    const currentDate = new Date().toLocaleString("en-IN", {
+      timeZone: "Asia/Kolkata",
+    });
+    const parts = currentDate.split(",");
+    const indianDate = parts.slice(0, 1).join(" ");
 
     currentUser.amount = newAmount;
     currentUser.mealDone.push({ mealDoneOk: true, date: indianDate });
     await currentUser.save();
 
-    res.redirect('../profile');
+    res.redirect("../profile");
   } catch (error) {
     console.error(error);
     res.status(401).send("something went wrong");

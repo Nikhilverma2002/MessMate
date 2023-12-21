@@ -11,6 +11,7 @@ const registerSchema = mongoose.Schema({
   college: String,
   amount: Number,
   address: String,
+  cardId : Number,
   confirmPassword: String,
   tokens: [
     {
@@ -42,7 +43,7 @@ const registerSchema = mongoose.Schema({
   ], mealDone: [
     {
       mealDoneOk: {
-        type: true,
+        type: Boolean,
       },
       date: {
         type: String,

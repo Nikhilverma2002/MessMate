@@ -14,7 +14,7 @@ router.get("/recharge", controller.recharge);
 router.get("/testing", controller.testing);
 router.post("/contact", controller.contactPost);
 router.post("/editprofile", controller.editPost);
-router.get("/profile/editprofile", auth, controller.editprofile);
+//router.get("/profile/editprofile", auth, controller.editprofile);
 
 router.get("/profile/recharge", controller.recharge);
 router.get("/testing", controller.testing);
