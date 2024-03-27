@@ -4,10 +4,12 @@ const mongoose = require("mongoose");
 const db = require("./db/connection");
 const router = require("./router/router");
 const ejs = require("ejs");
+const cors = require("cors"); // Import the cors package
 
 const app = express();
 const port = process.env.port || 3000;
 const cookieParser = require("cookie-parser");
+app.use(cors());
 
 app.use(express.static("public"));
 app.use(express.json());

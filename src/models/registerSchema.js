@@ -20,14 +20,16 @@ const registerSchema = mongoose.Schema({
       },
     },
   ],
-  money: String,
+  money: [{
+    type: String,
+  }],
 });
 
 registerSchema.methods.generateAuthToken = async function () {
   try {
     const token = await jwt.sign(
       { _id: this._id.toString() },
-      process.env.secretKey
+      process.env.secretkey
     );
     this.tokens = this.tokens.concat({ token: token });
     await this.save();
