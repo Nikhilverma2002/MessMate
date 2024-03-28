@@ -12,8 +12,6 @@ exports.index = async (req, res) => {
   try {
     const messSystem = await MessModel.find({});
 
-    res.json({ messList: messSystem });
-
     res.render("index", {
       messList: messSystem,
     });
